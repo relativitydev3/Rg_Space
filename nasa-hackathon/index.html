@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoDetect - NASA Space Apps Challenge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
+    <link href="styles/animations.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-rocket me-2"></i>
+                ExoDetect
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Acerca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#method">Método</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#demo">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Equipo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Earth -->
+    <section id="inicio" class="hero-section">
+        <div class="earth-container">
+            <div class="earth" id="earth"></div>
+        </div>
+        <div class="hero-content">
+            <div class="container">
+                <div class="row align-items-center min-vh-100">
+                    <div class="col-lg-6">
+                        <h1 class="hero-title">
+                            Descubre <span class="text-warning">Nuevos Mundos</span> con IA
+                        </h1>
+                        <p class="hero-subtitle">
+                            Plataforma interactiva para detección de exoplanetas usando el método de tránsito astronómico e inteligencia artificial.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="#demo" class="btn btn-primary btn-lg me-3">
+                                <i class="fas fa-play me-2"></i>Probar Demo
+                            </a>
+                            <a href="#method" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-book me-2"></i>Aprender Más
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Sobre el Proyecto</h2>
+                    <p class="section-text">
+                        ExoDetect es una plataforma innovadora que combina ciencia ciudadana con inteligencia artificial 
+                        para democratizar la búsqueda de exoplanetas. Utilizando datos reales de misiones espaciales, 
+                        permitimos a cualquier persona contribuir al descubrimiento de nuevos mundos.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-brain feature-icon"></i>
+                            <h5>IA Avanzada</h5>
+                            <p>Algoritmos de machine learning entrenados con datos de la NASA</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-graduation-cap feature-icon"></i>
+                            <h5>Enfoque Educativo</h5>
+                            <p>Modo principiante con tutoriales interactivos</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-chart-line feature-icon"></i>
+                            <h5>Análisis Científico</h5>
+                            <p>Herramientas profesionales para investigadores</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-visual">
+                        <div class="floating-element element-1">
+                            <i class="fas fa-satellite"></i>
+                        </div>
+                        <div class="floating-element element-2">
+                            <i class="fas fa-planet-ringed"></i>
+                        </div>
+                        <div class="floating-element element-3">
+                            <i class="fas fa-stars"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Method Section -->
+    <section id="method" class="section-padding bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Método de Tránsito Astronómico</h2>
+                    <p class="section-subtitle">Cómo detectamos planetas alrededor de otras estrellas</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 method-step">
+                    <div class="step-number">01</div>
+                    <h4>Observación Continua</h4>
+                    <p>Monitoreamos el brillo de miles de estrellas de forma continua</p>
+                    <div class="step-visual">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+                <div class="col-lg-4 method-step">
+                    <div class="step-number">02</div>
+                    <h4>Detección de Tránsitos</h4>
+                    <p>Identificamos caídas periódicas en el brillo estelar</p>
+                    <div class="step-visual">
+                        <i class="fas fa-chart-line-down"></i>
+                    </div>
+                </div>
+                <div class="col-lg-4 method-step">
+                    <div class="step-number">03</div>
+                    <h4>Análisis con IA</h4>
+                    <p>Algoritmos inteligentes distinguen planetas de falsos positivos</p>
+                    <div class="step-visual">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="method-demo">
+                        <canvas id="methodChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section -->
+    <section id="demo" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Demo Interactiva</h2>
+                    <p class="section-subtitle">Prueba nuestra herramienta de detección de exoplanetas</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-pills justify-content-center mb-4" id="demoTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="beginner-tab" data-bs-toggle="tab" data-bs-target="#beginner-demo" type="button" role="tab">Modo Principiante</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="expert-tab" data-bs-toggle="tab" data-bs-target="#expert-demo" type="button" role="tab">Modo Experto</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="demoTabsContent">
+                        <div class="tab-pane fade show active" id="beginner-demo" role="tabpanel">
+                            <!-- Contenido para principiantes -->
+                            <div id="beginnerDemoContent"></div>
+                        </div>
+                        <div class="tab-pane fade" id="expert-demo" role="tabpanel">
+                            <!-- Contenido para expertos -->
+                            <div id="expertDemoContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section-padding bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Nuestro Equipo</h2>
+                    <p class="section-subtitle">Desarrollado para la NASA Space Apps Challenge 2025</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-3 col-md-6 team-member">
+                    <div class="member-card">
+                        <div class="member-avatar">
+                            <i class="fas fa-user-astronaut"></i>
+                        </div>
+                        <h5>Líder del Proyecto</h5>
+                        <p>Coordinación y Visión</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 team-member">
+                    <div class="member-card">
+                        <div class="member-avatar">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h5>Desarrollador Frontend</h5>
+                        <p>Experiencia de Usuario</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 team-member">
+                    <div class="member-card">
+                        <div class="member-avatar">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h5>Científico de Datos</h5>
+                        <p>Algoritmos de IA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2025 ExoDetect - NASA Space Apps Challenge. Desarrollado con <i class="fas fa-heart text-danger"></i> para la exploración espacial.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Datos proporcionados por NASA Kepler & TESS missions</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/components/header.js"></script>
+    <script src="js/earth-animation.js"></script>
+    <script src="js/scroll-animations.js"></script>
+    <script src="js/components/hero.js"></script>
+    <script src="js/components/demo.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

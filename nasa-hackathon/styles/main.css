@@ -1,0 +1,390 @@
+:root {
+    --nasa-blue: #0B3D91;
+    --nasa-red: #FC3D21;
+    --nasa-dark: #0a0a1a;
+    --nasa-space: #1a1a2e;
+    --nasa-deep: #16213e;
+    --nasa-gold: #FFD700;
+    --nasa-teal: #00b4d8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--nasa-dark) 0%, var(--nasa-space) 50%, var(--nasa-deep) 100%);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Navigation */
+.navbar {
+    background: rgba(10, 10, 26, 0.95) !important;
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(10, 10, 26, 0.98) !important;
+    padding: 0.5rem 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--nasa-gold) !important;
+}
+
+.nav-link {
+    color: white !important;
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--nasa-teal) !important;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.earth-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.earth {
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background-image: url('https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 
+        inset 0 0 50px var(--nasa-blue),
+        inset 0 0 100px var(--nasa-dark),
+        0 0 100px rgba(0, 180, 216, 0.3);
+    position: relative;
+    transform-style: preserve-3d;
+    animation: earth-rotate 30s linear infinite;
+}
+
+@keyframes earth-rotate {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.earth::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 0%, transparent 50%),
+        repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px);
+    animation: cloudMove 20s linear infinite;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #fff 0%, var(--nasa-teal) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 500px;
+}
+
+.hero-buttons {
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--nasa-blue) 0%, var(--nasa-teal) 100%);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(11, 61, 145, 0.3);
+}
+
+.btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    position: relative;
+}
+
+.scroll-arrow::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 4px;
+    height: 12px;
+    background: var(--nasa-teal);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    animation: scrollBounce 2s infinite;
+}
+
+/* Sections */
+.section-padding {
+    padding: 6rem 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff 0%, var(--nasa-teal) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 3rem;
+}
+
+.section-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-item {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--nasa-teal);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--nasa-teal);
+    margin-bottom: 1rem;
+}
+
+.feature-item h5 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+/* About Visual */
+.about-visual {
+    position: relative;
+    height: 400px;
+}
+
+.floating-element {
+    position: absolute;
+    font-size: 3rem;
+    color: var(--nasa-teal);
+    animation: float 6s ease-in-out infinite;
+}
+
+.element-1 {
+    top: 20%;
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.element-2 {
+    top: 50%;
+    left: 60%;
+    animation-delay: 2s;
+}
+
+.element-3 {
+    top: 70%;
+    left: 30%;
+    animation-delay: 4s;
+}
+
+/* Method Steps */
+.method-step {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.step-number {
+    font-size: 4rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.method-step h4 {
+    color: white;
+    margin: 1rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+.step-visual {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--nasa-blue) 0%, var(--nasa-teal) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    font-size: 2rem;
+}
+
+.method-demo {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Demo Container */
+.demo-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+/* Team Section */
+.team-member {
+    margin-bottom: 2rem;
+}
+
+.member-card {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.member-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--nasa-teal);
+}
+
+.member-avatar {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--nasa-blue) 0%, var(--nasa-teal) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 2.5rem;
+}
+
+/* Footer */
+.footer {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .earth {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
