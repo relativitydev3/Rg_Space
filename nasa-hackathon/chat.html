@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mega-Bot AI</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <link href="styles/main.css" rel="stylesheet">
-    <link href="styles/animations.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -48,9 +43,7 @@
             backdrop-filter: blur(10px);
         }
 
-        .header,
-        .chat-list .message,
-        .typing-form {
+        .header, .chat-list .message, .typing-form {
             margin: 0 auto;
             max-width: 980px;
         }
@@ -76,7 +69,7 @@
             width: fit-content;
             font-size: 3rem;
             background-clip: text;
-            background: linear-gradient(to right, #797b7e, #d96570);
+            background: linear-gradient(to right, #4285f4, #d96570);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -176,9 +169,7 @@
         }
 
         @keyframes rotate {
-            100% {
-                transform: rotate(360deg);
-            }
+            100% { transform: rotate(360deg); }
         }
 
         .chat-list .message .icon {
@@ -233,13 +224,8 @@
         }
 
         @keyframes loading {
-            0% {
-                background-position: -200% 0;
-            }
-
-            100% {
-                background-position: 200% 0;
-            }
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
 
         .typing-area {
@@ -324,22 +310,22 @@
             color: var(--placeholder-color);
         }
 
+        .error-message {
+            color: #ff6b6b;
+        }
+
         @media (max-width: 768px) {
             .header :is(.title, .subtitle) {
                 font-size: 2rem;
                 line-height: 2.6rem;
             }
-
             .header .subtitle {
                 font-size: 1.7rem;
             }
         }
     </style>
 </head>
-
 <body>
-
-    <!-- Navigation Header -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -351,18 +337,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">Acerca</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#method">Método</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#team">Equipo</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Acerca</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#method">Método</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team">Equipo</a></li>
                 </ul>
             </div>
         </div>
@@ -411,41 +389,18 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const typingForm = document.querySelector(".typing-form");
+        const API_URL = "http://localhost:3000/api/chat";
         const chatContainer = document.querySelector(".chat-list");
+        const typingForm = document.querySelector(".typing-form");
         const suggestions = document.querySelectorAll(".suggestion");
         const toggleThemeButton = document.querySelector("#theme-toggle-button");
         const deleteChatButton = document.querySelector("#delete-chat-button");
 
         let userMessage = null;
         let isResponseGenerating = false;
-        let currentTheme = 'dark';
+        let conversationHistory = [];
 
-        const predefinedResponses = {
-            "hola": "¡Hola! ¿En qué puedo ayudarte?",
-            "buenos días": "¡Buenos días! ¿Cómo puedo ayudarte hoy?",
-            "buenas tardes": "¡Buenas tardes! ¿En qué puedo ayudarte?",
-            "buenas noches": "¡Buenas noches! ¿En qué puedo ayudarte?",
-            "¿cómo estás?": "¡Estoy bien, gracias por preguntar! ¿Y tú?",
-            "como estas": "¡Estoy bien, gracias por preguntar! ¿Y tú?",
-            "¿cuál es tu nombre?": "¡Soy Mega-Bot, tu asistente de IA!",
-            "cual es tu nombre": "¡Soy Mega-Bot, tu asistente de IA!",
-            "cuéntame un chiste": "¿Por qué los programadores prefieren el modo oscuro? ¡Porque la luz atrae bugs! 🐛",
-            "cuentame un chiste": "¿Por qué los programadores prefieren el modo oscuro? ¡Porque la luz atrae bugs! 🐛",
-            "¿cuál es tu propósito?": "Mi propósito es ayudarte con información y tareas en lo que pueda.",
-            "¿puedes ayudarme con mi tarea?": "¡Por supuesto! ¿De qué materia se trata?",
-            "¿cómo está el clima hoy?": "No tengo acceso a datos en tiempo real, pero puedo sugerirte sitios web del clima como weather.com",
-            "¿cuál es la capital de francia?": "La capital de Francia es París.",
-            "cual es la capital de francia": "La capital de Francia es París.",
-            "¿qué lenguajes de programación conoces?": "Conozco JavaScript, Python, Java, C++, PHP y muchos otros lenguajes de programación.",
-            "escribe código javascript para sumar todos los elementos de un arreglo": "function sumarArreglo(arr) {\n    return arr.reduce((suma, num) => suma + num, 0);\n}\n\n// Ejemplo de uso:\nconst numeros = [1, 2, 3, 4, 5];\nconsole.log(sumarArreglo(numeros)); // 15",
-            "ayúdame a planear una noche de juegos con mis amigos": "¡Claro! Aquí algunas ideas:\n1. Juegos de mesa: Monopoly, UNO, Pictionary\n2. Videojuegos multijugador: Mario Kart, FIFA, Among Us\n3. Snacks: Pizza, palomitas, refrescos\n4. Presupuesto: $80-100 debería ser suficiente\n5. Duración: 4-6 horas\n¡Que te diviertas!",
-            "¿cuáles son los mejores consejos para mejorar mis habilidades de oratoria?": "Aquí algunos consejos para mejorar tu oratoria:\n1. Practica frente al espejo\n2. Grábate y analiza tu lenguaje corporal\n3. Conoce bien tu tema\n4. Mantén contacto visual\n5. Usa pausas estratégicas\n6. Controla tu respiración\n7. Practica con audiencias pequeñas primero",
-            "hi": "¡Hola! ¿En qué puedo ayudarte?",
-            "hello": "¡Hola! ¿En qué puedo ayudarte?"
-        };
-
-        window.copyMessage = function (copyButton) {
+        window.copyMessage = function(copyButton) {
             const messageText = copyButton.parentElement.querySelector(".text").innerText;
             navigator.clipboard.writeText(messageText);
             copyButton.innerText = "done";
@@ -463,16 +418,12 @@
             const words = text.split(' ');
             let currentWordIndex = 0;
 
-            // Ocultar la animación de carga antes de empezar a escribir
             const loadingIndicator = incomingMessageDiv.querySelector(".loading-indicator");
-            if (loadingIndicator) {
-                loadingIndicator.style.display = 'none';
-            }
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
             incomingMessageDiv.classList.remove("loading");
 
             const typingInterval = setInterval(() => {
                 textElement.innerText += (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex++];
-
                 if (currentWordIndex === words.length) {
                     clearInterval(typingInterval);
                     isResponseGenerating = false;
@@ -483,15 +434,52 @@
             }, 75);
         };
 
-        const showPredefinedResponse = (incomingMessageDiv, textElement) => {
-            setTimeout(() => {
-                const normalizedUserMessage = userMessage.toLowerCase().trim();
-                const response = predefinedResponses[normalizedUserMessage] ||
-                    "Lo siento, aún no tengo una respuesta para eso. Por favor, intenta con otra pregunta o sé más específico.";
+        const generateAPIResponse = async (incomingMessageDiv) => {
+            const textElement = incomingMessageDiv.querySelector(".text");
+            
+            try {
+                console.log('🔵 Enviando mensaje:', userMessage);
+
+                conversationHistory.push({
+                    role: "user",
+                    content: userMessage
+                });
+
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ messages: conversationHistory })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error?.message || 'Error al conectar con la API');
+                }
+
+                const apiResponse = data.choices[0].message.content.trim();
+                console.log('✅ Respuesta recibida');
+
+                conversationHistory.push({
+                    role: "assistant",
+                    content: apiResponse
+                });
 
                 textElement.style.display = 'block';
-                showTypingEffect(response, textElement, incomingMessageDiv);
-            }, 2000); // 2 segundos exactos
+                showTypingEffect(apiResponse, textElement, incomingMessageDiv);
+
+            } catch (error) {
+                console.error("❌ Error:", error);
+                isResponseGenerating = false;
+                
+                const loadingIndicator = incomingMessageDiv.querySelector(".loading-indicator");
+                if (loadingIndicator) loadingIndicator.style.display = 'none';
+                incomingMessageDiv.classList.remove("loading");
+                
+                textElement.style.display = 'block';
+                textElement.classList.add("error-message");
+                textElement.innerText = `Error: ${error.message}`;
+            }
         };
 
         const showLoadingAnimation = () => {
@@ -509,9 +497,7 @@
             const incomingMessageDiv = createMessageElement(html, "incoming", "loading");
             chatContainer.appendChild(incomingMessageDiv);
             chatContainer.scrollTo(0, chatContainer.scrollHeight);
-
-            const textElement = incomingMessageDiv.querySelector(".text");
-            showPredefinedResponse(incomingMessageDiv, textElement);
+            generateAPIResponse(incomingMessageDiv);
         };
 
         const handleOutgoingChat = () => {
@@ -532,19 +518,18 @@
             typingForm.reset();
             document.body.classList.add("hide-header");
             chatContainer.scrollTo(0, chatContainer.scrollHeight);
-
             setTimeout(showLoadingAnimation, 500);
         };
 
         toggleThemeButton.addEventListener("click", () => {
             const isLightMode = document.body.classList.toggle("light_mode");
-            currentTheme = isLightMode ? 'light' : 'dark';
             toggleThemeButton.innerText = isLightMode ? "dark_mode" : "light_mode";
         });
 
         deleteChatButton.addEventListener("click", () => {
             if (confirm("¿Estás seguro de que quieres eliminar todos los mensajes?")) {
                 chatContainer.innerHTML = "";
+                conversationHistory = [];
                 document.body.classList.remove("hide-header");
             }
         });
@@ -552,7 +537,6 @@
         suggestions.forEach(suggestion => {
             suggestion.addEventListener("click", () => {
                 userMessage = suggestion.querySelector(".text").innerText;
-                typingForm.querySelector(".typing-input").value = userMessage;
                 handleOutgoingChat();
             });
         });
@@ -563,5 +547,4 @@
         });
     </script>
 </body>
-
 </html>
