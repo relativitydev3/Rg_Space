@@ -145,3 +145,159 @@ df_fold.to_csv(csv_fold, index=False)
 print(f"CSV de fase guardado en: {csv_fold}")
 
 print("\nProceso completo. Revisa la carpeta:", out_dir)
+#PROBABILIDADES
+import numpy as np
+import pandas as pd
+import os
+
+
+from sklearn.model_selection import train_test_split
+if 'X_test' not in globals() or 'Y_test' not in globals():
+    X_train_tmp, X_test_tmp, Y_train_tmp, Y_test_tmp = train_test_split(X, Y, test_size=0.2, random_state=42)
+   
+    if 'X_train' in globals() and 'Y_train' in globals():
+        X_train_for_calib = X_train
+        Y_train_for_calib = Y_train
+        X_test_use = X_test
+        Y_test_use = Y_test
+    else:
+        X_train_for_calib = X_train_tmp
+        Y_train_for_calib = Y_train_tmp
+        X_test_use = X_test_tmp
+        Y_test_use = Y_test_tmp
+else:
+    X_test_use = X_test
+    Y_test_use = Y_test
+    X_train_for_calib = X_train
+    Y_train_for_calib = Y_train
+
+# Obtener un clasificador con predict_proba calibrado
+clf_proba = None
+if hasattr(clf, "predict_proba"):
+    clf_proba = clf
+else:
+    # Si el clasificador no tiene predict_proba, calibramos con CalibratedClassifierCV
+    from sklearn.calibration import CalibratedClassifierCV
+    print("Calibrando clasificador para obtener probabilidades (esto re-entrena el clasificador internamente)...")
+    calibrador = CalibratedClassifierCV(clf, cv=5)  # usa cv=5 por defecto
+    calibrador.fit(X_train_for_calib, Y_train_for_calib)
+    clf_proba = calibrador
+
+# --- Probabilidades sobre el conjunto de test 
+probs_test = clf_proba.predict_proba(X_test_use)[:, 1]  # prob de clase 1 = Exoplaneta
+preds_test = clf_proba.predict(X_test_use)
+
+# DataFrame con resultados de test
+df_test_probs = pd.DataFrame(X_test_use, columns=['periodo','profundidad','duracion'])
+df_test_probs['y_true'] = Y_test_use
+df_test_probs['p_exoplaneta'] = probs_test
+df_test_probs['pred'] = preds_test
+df_test_probs = df_test_probs.sort_values('p_exoplaneta', ascending=False).reset_index(drop=True)
+
+# Guardar y mostrar top
+csv_test_out = "test_probabilities_sorted.csv"
+df_test_probs.to_csv(csv_test_out, index=False)
+print(f"\nResultados (test) guardados en: {csv_test_out}")
+print("\nTop 10 candidatos en test por probabilidad de ser exoplaneta:")
+print(df_test_probs.head(10).to_string(index=False))
+
+# --- Métrica de calibración simple (Brier score) ---
+try:
+    from sklearn.metrics import brier_score_loss
+    brier = brier_score_loss(Y_test_use, probs_test)
+    print(f"\nBrier score (test): {brier:.4f}  (más bajo = mejores probabilidades calibradas)")
+except Exception as e:
+    print("No se pudo calcular Brier score:", e)
+
+# --- Predicciones en lote (si existe 'nuevos_candidatos.csv') ---
+csv_entrada = "nuevos_candidatos.cs"
+csv_salida_prob = "predicciones_prob_sorted.csv"
+
+if os.path.exists(csv_entrada):
+    print(f"\nArchivo '{csv_entrada}' encontrado. Calculando probabilidades para ese lote...")
+    df_nuevos = pd.read_csv(csv_entrada)
+    # Aceptar dos formatos: columnas nombradas o primeras 3 columnas
+    if not set(['periodo','profundidad','duracion']).issubset(df_nuevos.columns):
+        df_nuevos = df_nuevos.iloc[:, :3]
+        df_nuevos.columns = ['periodo','profundidad','duracion']
+    X_nuevos = df_nuevos[['periodo','profundidad','duracion']].values.astype(float)
+    probs_nuevos = clf_proba.predict_proba(X_nuevos)[:, 1]
+    preds_nuevos = clf_proba.predict(X_nuevos)
+    df_nuevos['p_exoplaneta'] = probs_nuevos
+    df_nuevos['pred'] = preds_nuevos
+    df_nuevos['label'] = df_nuevos['pred'].apply(lambda v: "Exoplaneta" if int(v)==1 else "Falso positivo")
+    df_nuevos = df_nuevos.sort_values('p_exoplaneta', ascending=False).reset_index(drop=True)
+    df_nuevos.to_csv(csv_salida_prob, index=False)
+    print(f"Predicciones con probabilidades guardadas en: {csv_salida_prob}")
+    print("\nTop 10 candidatos en lote por probabilidad de ser exoplaneta:")
+    print(df_nuevos.head(10).to_string(index=False))
+else:
+    print(f"\nNo se encontró '{csv_entrada}'. Si quieres predecir en lote crea ese archivo con columnas: periodo,profundidad,duracion")
+
+# --- Función útil: obtener probabilidad para un solo candidato 
+def probabilidad_exoplaneta(periodo, profundidad, duracion):
+    x = np.array([[float(periodo), float(profundidad), float(duracion)]])
+    p = clf_proba.predict_proba(x)[0,1]
+    return float(p)
+
+    #PLOT
+    # ----------------------------
+# Scatter: Periodo_orbital vs Profundidad_transito (unidades originales), resaltar test set
+# ----------------------------
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+
+out_dir = "plots_rf"
+os.makedirs(out_dir, exist_ok=True)
+
+# Usar el DataFrame 
+try:
+    df_all = data.copy()
+except NameError:
+    df_all = pd.DataFrame(X, columns=['periodo_orbital', 'profundidad_transito', 'duracion_transito'])
+    df_all['etiqueta'] = Y
+
+# Intentar obtener X_test (o X_test_use) para resaltar puntos de test
+test_mask = np.zeros(len(df_all), dtype=bool)
+try:
+    Xt = X_test_use if 'X_test_use' in globals() else X_test
+    rows_all = df_all[['periodo_orbital', 'profundidad_transito', 'duracion_transito']].values
+    # Para cada fila de df_all, marcar True si aparece en Xt (comparación con tolerancia)
+    for idx, row in enumerate(rows_all):
+        if any(np.allclose(row, r, rtol=1e-6, atol=1e-8) for r in Xt):
+            test_mask[idx] = True
+except Exception:
+    # Si algo falla (p. ej. no existe X_test), simplemente no resaltamos
+    test_mask = np.zeros(len(df_all), dtype=bool)
+
+# Crear figura
+fig, ax = plt.subplots(figsize=(8,6))
+
+mask0 = df_all['etiqueta'] == 0
+mask1 = df_all['etiqueta'] == 1
+
+ax.scatter(df_all.loc[mask0, 'periodo_orbital'], df_all.loc[mask0, 'profundidad_transito'],
+           label='Falso positivo (0)', marker='o', s=70, alpha=0.9, edgecolor='k')
+ax.scatter(df_all.loc[mask1, 'periodo_orbital'], df_all.loc[mask1, 'profundidad_transito'],
+           label='Exoplaneta (1)', marker='s', s=90, alpha=0.9, edgecolor='k')
+
+# Resaltar puntos de test (amarillo, borde grueso)
+if test_mask.any():
+    ax.scatter(df_all.loc[test_mask, 'periodo_orbital'], df_all.loc[test_mask, 'profundidad_transito'],
+               facecolors='none', edgecolors='yellow', s=300, linewidths=2, label='Test set')
+
+ax.set_xlabel('Periodo orbital (días)')
+ax.set_ylabel('Profundidad del tránsito (unidades originales)')
+ax.set_title('Periodo orbital vs Profundidad — Datos (test resaltado)')
+ax.legend(loc='best')
+ax.grid(alpha=0.3)
+fig.tight_layout()
+
+fname = os.path.join(out_dir, "scatter_periodo_vs_profundidad.png")
+fig.savefig(fname, dpi=150)
+print("Guardado scatter en:", fname)
+
+# Mostrar la figura en pantalla (si tu entorno lo permite)
+plt.show()
+plt.close(fig)
