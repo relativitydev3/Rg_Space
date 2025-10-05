@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExoDetect - NASA Space Apps Challenge</title>
+    <title>Hello Kitty Space</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="styles/main.css" rel="stylesheet">
@@ -15,7 +15,7 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 <i class="fas fa-rocket me-2"></i>
-                ExoDetect
+                Hello Kitty Space
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -30,9 +30,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#method">Método</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#demo">Demo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#team">Equipo</a>
@@ -58,7 +55,7 @@
                             Plataforma interactiva para detección de exoplanetas usando el método de tránsito astronómico e inteligencia artificial.
                         </p>
                         <div class="hero-buttons">
-                            <a href="#demo" class="btn btn-primary btn-lg me-3">
+                            <a href="###" class="btn btn-primary btn-lg me-3">
                                 <i class="fas fa-play me-2"></i>Probar Demo
                             </a>
                             <a href="#method" class="btn btn-outline-light btn-lg">
@@ -174,40 +171,202 @@
         </div>
     </section>
 
-    <!-- Interactive Demo Section -->
-    <section id="demo" class="section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center mb-5">
-                    <h2 class="section-title">Demo Interactiva</h2>
-                    <p class="section-subtitle">Prueba nuestra herramienta de detección de exoplanetas</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <ul class="nav nav-pills justify-content-center mb-4" id="demoTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="beginner-tab" data-bs-toggle="tab" data-bs-target="#beginner-demo" type="button" role="tab">Modo Principiante</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="expert-tab" data-bs-toggle="tab" data-bs-target="#expert-demo" type="button" role="tab">Modo Experto</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="demoTabsContent">
-                        <div class="tab-pane fade show active" id="beginner-demo" role="tabpanel">
-                            <!-- Contenido para principiantes -->
-                            <div id="beginnerDemoContent"></div>
-                        </div>
-                        <div class="tab-pane fade" id="expert-demo" role="tabpanel">
-                            <!-- Contenido para expertos -->
-                            <div id="expertDemoContent"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="zenith-media-section">
+    <div class="cosmic-decoration"></div>
+    <div class="galaxy-decoration"></div>
+    
+    <div class="nimbus-header-container">
+        <h2 class="nimbus-main-title">🌟 Contenido Multimedia Destacado</h2>
+    </div>
+    
+    <article class="quantum-media-wrapper">
+        <div class="aurora-video-container">
+            <video controls class="stellar-video-player">
+                <source src="images/video1.mp4" type="video/mp4">
+                Tu navegador no soporta el elemento de video.
+            </video>
+            
+            <img src="images/logo.png" 
+                 alt="Elemento superpuesto" 
+                 class="celestial-overlay-image nebula-top-right">
         </div>
-    </section>
+    </article>
+    
+    <div class="orion-content-panel">
+        <p class="stellar-description-text">
+            Este contenido presenta <span class="quantum-highlight">elementos superpuestos</span> 
+            utilizando técnicas avanzadas de <span class="quantum-highlight">posicionamiento CSS</span> 
+            para una experiencia visual única.
+        </p>
+        <button class="pulsar-action-button">Explorar Contenido</button>
+    </div>
+</section>
 
+<style>
+    .zenith-media-section {
+        position: relative;
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 35px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        box-shadow: 0 12px 35px rgba(100, 150, 255, 0.2);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+    }
+
+    .cosmic-decoration {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(100, 200, 255, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        top: -50px;
+        right: -50px;
+        z-index: 0;
+    }
+
+    .galaxy-decoration {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, rgba(150, 220, 255, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        bottom: -30px;
+        left: -30px;
+        z-index: 0;
+    }
+
+    .nimbus-header-container {
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .nimbus-main-title {
+        color: #1a365d;
+        font-size: 2.2rem;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 0;
+    }
+
+    .quantum-media-wrapper {
+        position: relative;
+        z-index: 1;
+    }
+
+    .aurora-video-container {
+        position: relative;
+        width: 100%;
+        background: #0f172a;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        border: 3px solid #e2e8f0;
+    }
+
+    .stellar-video-player {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .stellar-video-player:hover {
+        transform: scale(1.01);
+    }
+
+    .celestial-overlay-image {
+        position: absolute;
+        z-index: 9999;
+        width: 110px;
+        height: 110px;
+        border: 5px solid rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        box-shadow: 0 0 30px rgba(74, 144, 226, 0.6);
+        object-fit: cover;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        animation: nebula-float 3s ease-in-out infinite;
+    }
+
+    .celestial-overlay-image:hover {
+        transform: scale(1.15) rotate(5deg);
+        box-shadow: 0 0 40px rgba(74, 144, 226, 0.9);
+    }
+
+    @keyframes nebula-float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+    }
+
+    .nebula-top-right {
+        top: 25px;
+        right: 25px;
+    }
+
+    .nebula-top-left {
+        top: 25px;
+        left: 25px;
+    }
+
+    .nebula-top-center {
+        top: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .orion-content-panel {
+        text-align: center;
+        margin-top: 25px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .stellar-description-text {
+        color: #2d3748;
+        line-height: 1.7;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+
+    .quantum-highlight {
+        color: #2b6cb0;
+        font-weight: 600;
+        background: linear-gradient(120deg, #bee3f8 0%, #bee3f8 100%);
+        background-repeat: no-repeat;
+        background-size: 100% 0.3em;
+        background-position: 0 88%;
+        transition: background-size 0.3s ease;
+        padding: 0 2px;
+    }
+
+    .quantum-highlight:hover {
+        background-size: 100% 100%;
+    }
+
+    .pulsar-action-button {
+        background: linear-gradient(135deg, #63b3ed 0%, #4299e1 100%);
+        color: white;
+        border: none;
+        padding: 14px 32px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .pulsar-action-button:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 25px rgba(66, 153, 225, 0.6);
+        background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    }
+</style>
+    
     <!-- Team Section -->
     <section id="team" class="section-padding bg-dark">
         <div class="container">
@@ -254,7 +413,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>&copy; 2025 ExoDetect - NASA Space Apps Challenge. Desarrollado con <i class="fas fa-heart text-danger"></i> para la exploración espacial.</p>
+                    <p>&copy; 2025 Hello Kitty Space - <a href="https://www.spaceappschallenge.org/2025/">NASA Space Apps Challenge.</a> Desarrollado con <i class="fas fa-heart text-danger"></i> para la exploración espacial.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p>Datos proporcionados por NASA Kepler & TESS missions</p>
